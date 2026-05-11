@@ -59,8 +59,12 @@ jobs:
           version="${{ steps.version_check.outputs.version }}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git tag -a "$version" -m "Release $version"
-          git push origin "$version"
+          if git ls-remote --tags origin "refs/tags/$version" | grep -q "$version"; then
+            echo "Tag $version already exists on remote, skipping tag creation"
+          else
+            git tag -a "$version" -m "Release $version"
+            git push origin "$version"
+          fi
 
       - name: Extract changelog for this version
         if: steps.version_check.outputs.changed == 'true'
@@ -92,7 +96,9 @@ jobs:
           ls -l dist/
 
           # Create release with changelog notes or auto-generated notes
-          if [ -n "${{ steps.changelog.outputs.notes_file }}" ] && [ -f "${{ steps.changelog.outputs.notes_file }}" ]; then
+          if gh release view "$version" > /dev/null 2>&1; then
+            echo "Release $version already exists, skipping release creation"
+          elif [ -n "${{ steps.changelog.outputs.notes_file }}" ] && [ -f "${{ steps.changelog.outputs.notes_file }}" ]; then
             gh release create "$version" \
               --title "Release $version" \
               --notes-file "${{ steps.changelog.outputs.notes_file }}" \
