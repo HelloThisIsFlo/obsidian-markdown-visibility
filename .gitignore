@@ -1,7 +1,8 @@
 # Obsidian Plugin Build Files
 node_modules/
+dist/
 
-# Build artifacts (dist/ is committed for end users)
+# Build artifacts
 *.js.map
 
 # Development

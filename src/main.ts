@@ -104,7 +104,7 @@ export default class MarkdownVisibilityPlugin extends Plugin {
 
 	updateStatusBarItem() {
 		if (this.statusBarItem) {
-			const text = this.settings.enabled ? '👁️ Markers Hidden' : '👁️ Markers Visible';
+			const text = this.settings.enabled ? '👁️ Markers hidden' : '👁️ Markers visible';
 			this.statusBarItem.setText(text);
 		}
 	}
