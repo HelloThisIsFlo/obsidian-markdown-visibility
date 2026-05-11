@@ -1,7 +1,7 @@
 {
 	"id": "markdown-visibility",
 	"name": "Markdown Visibility",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Toggle visibility of Markdown syntax markers in Live Preview.",
 	"author": "miztizm",
 	"authorUrl": "https://github.com/miztizm",
